@@ -1,0 +1,24 @@
+{
+  "name": "vs/url",
+  "description": "VarYan's Url package",
+  "type": "package",
+  "require": {
+    "php": "^7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Varazdat Stepanyan",
+      "email": "developervaryan@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VS\\Url\\": "./src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
