@@ -2,6 +2,7 @@
   "name": "vs/url",
   "description": "VarYan's Url package",
   "type": "package",
+  "homepage": "https://github.com/varyandeveloper/vs-url",
   "require": {
     "php": "^7.2"
   },
