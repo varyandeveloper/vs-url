@@ -21,6 +21,12 @@ class Url implements UrlInterface, SingletonInterface
      */
     public function current(bool $withParams = false): string
     {
+        $method = $_SERVER['REQUEST_METHOD'] ?? 'cli';
+
+        if ($method === 'cli') {
+            return $this->currentCli($withParams);
+        }
+
         $key = $withParams ? 'REQUEST_URI' : 'PATH_INFO';
         $url = trim(stripcslashes(rtrim($_SERVER[$key] ?? '', '/')));
         return empty($url) ? '/' : $url;
@@ -62,5 +68,23 @@ class Url implements UrlInterface, SingletonInterface
     public function full(bool $withParams = false): string
     {
         return $this->base() . ltrim($this->current($withParams), '/');
+    }
+
+    /**
+     * @param bool $withParams
+     * @return string
+     */
+    protected function currentCli(bool $withParams): string
+    {
+        global $argv;
+        unset($argv[0]);
+
+        $url = "/";
+
+        if (count($argv)) {
+            $url .= implode('/', $argv);
+        }
+
+        return $withParams ? $url : explode("?", $url, 2)[0];
     }
 }
