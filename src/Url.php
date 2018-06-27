@@ -2,19 +2,13 @@
 
 namespace VS\Url;
 
-use VS\General\Singleton\{
-    SingletonInterface, SingletonTrait
-};
-
 /**
  * Class Url
  * @package VS\Url
  * @author Varazdat Stepanyan
  */
-class Url implements UrlInterface, SingletonInterface
+class Url implements UrlInterface
 {
-    use SingletonTrait;
-
     /**
      * @param bool $withParams
      * @return string
@@ -52,12 +46,14 @@ class Url implements UrlInterface, SingletonInterface
      */
     public function base(string $additional = ''): string
     {
-        return sprintf(
+        $base = sprintf(
             "%s://%s%s",
             isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
             $_SERVER['SERVER_NAME'],
             $_SERVER['SERVER_PORT'] ? sprintf(':%s/', $_SERVER['SERVER_PORT']) : '/'
         );
+
+        return !empty($additional) ? $base . $additional : $base;
     }
 
     /**
