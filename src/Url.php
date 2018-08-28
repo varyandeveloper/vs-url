@@ -21,9 +21,12 @@ class Url implements UrlInterface
             return $this->currentCli($withParams);
         }
 
-        $key = $withParams ? 'REQUEST_URI' : 'PATH_INFO';
-        $url = trim(stripcslashes(rtrim($_SERVER[$key] ?? '', '/')));
-        return empty($url) ? '/' : $url;
+        $uri = str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['REQUEST_URI']);
+        if (!$withParams) {
+            [$uri,] = explode('?', $uri);
+        }
+
+        $url = trim(stripcslashes(rtrim($uri ?? '', '/')));
     }
 
     /**
