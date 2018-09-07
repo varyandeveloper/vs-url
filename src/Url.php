@@ -27,6 +27,7 @@ class Url implements UrlInterface
         }
 
         $url = trim(stripcslashes(rtrim($uri ?? '', '/')));
+        return empty($url) ? '/' : $url;
     }
 
     /**
